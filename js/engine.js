@@ -23,6 +23,7 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
+        //  $gameContainer = $('#game-container'),
         lastTime;
 
     canvas.width = 505;
@@ -43,7 +44,8 @@ var Engine = (function(global) {
             dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
-         * our update function since it may be used for smooth animation.
+         * our
+         *  function since it may be used for smooth animation.
          */
         update(dt);
         render();
@@ -64,7 +66,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
+        reset(); //called on players and all objects, to initial position, gets hit, reaches water, etc
         lastTime = Date.now();
         main();
     }
@@ -80,8 +82,11 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        // checkCollisions();  //Check collinsions either here in engine.js, or in app.js
     }
+    //
+  //   scoreEl.innerHTML = score;
+  // }
 
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
@@ -90,6 +95,7 @@ var Engine = (function(global) {
      * the data/properties related to the object. Do your drawing in your
      * render methods.
      */
+    //renders enemies and player. Notice dt, her and in update above, to synchronize frame rate
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
