@@ -1,10 +1,11 @@
+
 // Speed in pixels per second. From jlongster on github
 var playerSpeed = 200;
 var enemySpeed = 100;
 
 // Enemies our player must avoid
-    //The constructor function takes in arguments for the aspects that
-    //will be different about each enemy. Here blank, ()
+//The constructor function takes in arguments for the aspects that
+//will be different about each enemy. Here blank, ()
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -31,12 +32,12 @@ Enemy.prototype.update = function(dt) {
     // this.resetPosition();
 
     //  Update all the enemies. Adapted from jlongster on github
-    for(var i=0; i<enemies.length; i++) {
+    for (var i = 0; i < enemies.length; i++) {
         enemies[i].pos[0] -= enemySpeed * dt;
         enemies[i].sprite.update(dt);
 
         // Remove if offscreen
-        if(enemies[i].pos[0] + enemies[i].sprite.size[0] < 0) {
+        if (enemies[i].pos[0] + enemies[i].sprite.size[0] < 0) {
             enemies.splice(i, 1);
             i--;
         }
