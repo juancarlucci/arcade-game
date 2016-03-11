@@ -1,6 +1,10 @@
 // Speed in pixels per second. From jlongster on github
 var playerSpeed = 200;
 var enemySpeed = 100;
+var xStart = 200;
+var yStart = 385;
+var score = 0;
+var playerLives = 3;
 
 
 // Enemies our player must avoid
@@ -28,8 +32,9 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     enemy.sprite.update(dt);
     this.x = this.x + this.speed * dt;
-    //   if (this.x > ctx.width) {
-    // this.resetPosition();
+  };
+    if (this.x > ctx.width) {
+    this.resetPosition();
 
     //  Update all the enemies. Adapted from jlongster on github
     for(var i=0; i<enemies.length; i++) {
@@ -43,7 +48,7 @@ Enemy.prototype.update = function(dt) {
         }
     }
 
-};
+}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -62,6 +67,7 @@ var Player = function() {
     this.sprite = 'images/char-horn-girl.png';
     this.x = 200;
     this.y = 385;
+    this.points = 0;
     // this.moveY = 85;
     // this.moveX = 100;
 };
@@ -70,12 +76,11 @@ Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    player.sprite.update(dt);
 };
 
 Player.prototype.reset = function() {
-    this.x = X_START;
-    this.y = Y_START;
+    this.x = xStart;
+    this.y = yStart;
 };
 
 Player.prototype.render = function() {
@@ -106,7 +111,7 @@ Player.prototype.handleInput = function(allowedKeys) {
             } else if (this.y === this.height) {
                 this.y = 0;
                 this.score += 100;
-                document.getElementById("myScoreDivId").innerHTML=player.score;
+                document.getElementById("elScore").innerHTML=player.score;
             } else {
                 player.reset();
                 }
