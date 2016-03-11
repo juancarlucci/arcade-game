@@ -73,8 +73,53 @@ Player.prototype.update = function(dt) {
     player.sprite.update(dt);
 };
 
+Player.prototype.reset = function() {
+    this.x = X_START;
+    this.y = Y_START;
+};
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Player.prototype.handleInput = function(allowedKeys) {
+    switch (allowedKeys) {
+        case 'left':
+            if (this.x > this.width) {
+                this.x -= 101;
+            }
+            if (this.y === 0) {
+                player.reset();
+            }
+            break;
+        case 'right':
+            if (this.x + 101 < 505 - this.width) {
+                this.x += 101;
+            }
+            if (this.y === 0){
+                player.reset();
+            }
+            break;
+        case 'up':
+            if (this.y > this.height) {
+                this.y -= 83;
+            } else if (this.y === this.height) {
+                this.y = 0;
+                this.score += 100;
+                document.getElementById("myScoreDivId").innerHTML=player.score;
+            } else {
+                player.reset();
+                }
+            break;
+        case 'down':
+            if (this.y < (498 - this.height) && this.y !== 0) {
+                this.y += 83;
+            }
+            if (this.y === 0){
+                player.reset();
+            }
+            break;
+    }
 };
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
