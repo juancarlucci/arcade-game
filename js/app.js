@@ -2,6 +2,7 @@
 var playerSpeed = 200;
 var enemySpeed = 100;
 
+
 // Enemies our player must avoid
     //The constructor function takes in arguments for the aspects that
     //will be different about each enemy. Here blank, ()
@@ -61,11 +62,20 @@ var Player = function() {
     this.sprite = 'images/char-horn-girl.png';
     this.x = 200;
     this.y = 385;
-    this.moveY = 85;
-    this.moveX = 100;
+    // this.moveY = 85;
+    // this.moveX = 100;
 };
 
+Player.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+    player.sprite.update(dt);
+};
 
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
@@ -74,8 +84,7 @@ var allEnemies = [];
 var player = new Player();
 var enemy = new Enemy();
 
-enemy.render();
-player.render();
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
