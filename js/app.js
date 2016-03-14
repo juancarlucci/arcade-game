@@ -21,6 +21,10 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.yBase = 60;
+    this.yInterval = 83;
+    this.y = this.yBase + (Math.floor((Math.random() * 3)) * this.yInterval); // get random number between 1 - 3; multiply by pixels to determine starting row of enemy
+    this.speed = 100 + Math.floor((Math.random() * 200) + 1);
 
 };
 
@@ -30,11 +34,11 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    enemy.sprite.update(dt);
+    // enemy.sprite.update(dt); //this does not allow enemies to be seen! keep it off.
     this.x = this.x + this.speed * dt;
   };
     if (this.x > ctx.width) {
-    this.resetPosition();
+    this.reset();
 
     //  Update all the enemies. Adapted from jlongster on github
     for(var i=0; i<enemies.length; i++) {
@@ -47,14 +51,33 @@ Enemy.prototype.update = function(dt) {
             i--;
         }
     }
-
-}
+  }
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Enemy.prototype.reset = function() {
+    this.x = xStart;
+    this.y = yStart;
+};
+
+//adapted from http://jsandlund.github.io/bugscape-js/
+checkCollisions = function() {
+  // iterate through all Enemy objects. If location of any is within 25px of a Player object, trigger collission event
+  for (var i = 0; i < allEnemies.length; i++) {
+    if (Math.abs(player.y - allEnemies[i].y) < 25 && Math.abs(player.x - allEnemies[i].x) < 25) {
+      this.updateScore(-1);
+      if (player.lives > 1) {
+        player.updateLives(-1);
+      } else {
+        this.changeState('state_endGame');
+      }
+      player.reset();
+    }
+  }
+};
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -67,15 +90,19 @@ var Player = function() {
     this.sprite = 'images/char-horn-girl.png';
     this.x = 200;
     this.y = 385;
-    this.points = 0;
-    // this.moveY = 85;
-    // this.moveX = 100;
+    this.score = 0;
+    this.moveY = 83;
+    this.moveX = 101;
+    this.lives = 3;
 };
 
 Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if (this.x > ctx.width) {
+    this.reset();
+  }
 };
 
 Player.prototype.reset = function() {
@@ -87,49 +114,136 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function(allowedKeys) {
-    switch (allowedKeys) {
-        case 'left':
-            if (this.x > this.width) {
-                this.x -= 101;
-            }
-            if (this.y === 0) {
-                player.reset();
-            }
-            break;
-        case 'right':
-            if (this.x + 101 < 505 - this.width) {
-                this.x += 101;
-            }
-            if (this.y === 0){
-                player.reset();
-            }
-            break;
-        case 'up':
-            if (this.y > this.height) {
-                this.y -= 83;
-            } else if (this.y === this.height) {
-                this.y = 0;
+
+Player.prototype.handleInput = function(direction){
+if(direction === 'left' && this.x > 25){
+this.x -=101;
+}
+if(direction === 'up' && this.y > 10){
+this.y -= 48;
+}
+else if (this.y < 10) {
                 this.score += 100;
                 document.getElementById("elScore").innerHTML=player.score;
-            } else {
-                player.reset();
-                }
-            break;
-        case 'down':
-            if (this.y < (498 - this.height) && this.y !== 0) {
-                this.y += 83;
-            }
-            if (this.y === 0){
                 player.reset();
             }
-            break;
-    }
+            // else {
+//                 player.reset();
+//                 }
+
+if(direction === 'right' && this.x < 400){
+this.x += 101;
+}
+if(direction === 'down' && this.y < 400){
+this.y +=50;
+}
 };
+
+
+// Player.prototype.handleInput = function(keyPressed) {
+//
+//   switch (keyPressed) {
+//     case "left":
+//       if (this.x !== 0) {
+//         this.x = this.x - this.moveX;
+//       }
+//       break;
+//     case "right":
+//       if (this.x < 400) {
+//         this.x = this.x + this.moveX;
+//       }
+//       break;
+//     case "up":
+//       if (this.y === 45) {
+//         Game.updateScore(1);
+//       } else {
+//         this.y = this.y - this.moveY;
+//       }
+//       break;
+//     case "down":
+//       if (this.y < 385) {
+//         this.y = this.y + this.moveY;
+//       }
+//       break;
+//   }
+// };
+
+
+// Player.prototype.handleInput = function(keyPressed) {
+//
+//   switch (keyPressed) {
+//     case "left":
+//       if (this.x !== 0) {
+//         this.x = this.x - this.moveX;
+//       }
+//       break;
+//     case "right":
+//       if (this.x < 400) {
+//         this.x = this.x + this.moveX;
+//       }
+//       break;
+//     case "up":
+//       if (this.y === 45) {
+//         Game.updateScore(1);
+//       } else {
+//         this.y = this.y - this.moveY;
+//       }
+//       break;
+//     case "down":
+//       if (this.y < 385) {
+//         this.y = this.y + this.moveY;
+//       }
+//       break;
+//   }
+// };
+
+
+
+// Player.prototype.handleInput = function(keyPressed) {
+//     switch (keyPressed) {
+//         case 'left':
+//             if (this.x > this.width) {
+//                 this.x -= 101;
+//             }
+//             if (this.y === 0) {
+//                 player.reset();
+//             }
+//             break;
+//         case 'right':
+//             if (this.x + 101 < 505 - this.width) {
+//                 this.x += 101;
+//             }
+//             if (this.y === 0){
+//                 player.reset();
+//             }
+//             break;
+//         case 'up':
+//             if (this.y > this.height) {
+//                 this.y -= 83;
+//             } else if (this.y === this.height) {
+//                 this.y = 0;
+//                 this.score += 100;
+//                 document.getElementById("elScore").innerHTML=player.score;
+//             } else {
+//                 player.reset();
+//                 }
+//             break;
+//         case 'down':
+//             if (this.y < (498 - this.height) && this.y !== 0) {
+//                 this.y += 83;
+//             }
+//             if (this.y === 0){
+//                 player.reset();
+//             }
+//             break;
+//     }
+// };
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
-
+for (var i = 1; i <5; i++) {
+    allEnemies.push(new Enemy(this.x, (i * 83) - 30, this.speed * 100 * i));
+  }
 // Place the player object in a variable called player
 var player = new Player();
 var enemy = new Enemy();
