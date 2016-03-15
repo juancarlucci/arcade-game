@@ -4,7 +4,7 @@ var playerSpeed = 200;
 var enemySpeed = 100;
 var xStart = 200;
 var yStart = 385;
-var score = 0;
+// var score = 0;
 
 
 
@@ -28,16 +28,14 @@ var Enemy = function() {
     // we've provided one for you to get started
     this.x = 10;
     this.y = 20;
-    this.speed = enemySpeed;
-    // this.width = config.width || 30;
-    // this.height = config.height || 30;
+    // this.speed = enemySpeed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.yBase = 60;
-    this.yInterval = 83;
-    this.y = this.yBase + (Math.floor((Math.random() * 3)) * this.yInterval); // get random number between 1 - 3; multiply by pixels to determine starting row of enemy
-    this.speed = 100 + Math.floor((Math.random() * 200) + 1);
+    this.yInterval = 87;
+    // this.y = this.yBase + (Math.floor((Math.random() * 3)) * this.yInterval); // get random number between 1 - 3; multiply by pixels to determine starting row of enemy
+    this.speed = enemySpeed + Math.floor((Math.random() * 100) + 1);
 
 };
 //adapted from shttps://discussions.udacity.com/t/trying-to-identify-collisions-but-how-do-i-compare-enemy-x-with-player-x/29930/9
@@ -47,6 +45,25 @@ Enemy.prototype.checkCollision = function(player) {
         player.y < this.y + 50 &&
         70 + player.y > this.y) {
         player.reset();
+        this.x = -1;
+        player.lives= -1;
+        // player.updateScore(-50);
+        document.getElementById("elScore").innerHTML = player.score;
+        // player.lives--;
+        document.getElementById("elLives").innerHTML = player.score;
+
+    }
+};
+// Enemy.prototype.bugReset = function () {
+//     for (var i = 0; i < allEnemies.length; i++)
+//         allEnemies[i].x = -200;
+// };
+
+// Reset enemy location at endpoint
+Enemy.prototype.bugReset = function() {
+   if (this.x >= 505) {
+        this.x = -101;
+
     }
 };
 // Update the enemy's position, required method for game
@@ -58,31 +75,13 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     // enemy.sprite.update(dt); //this does not allow enemies to be seen! keep it off.
     this.x = this.x + this.speed * dt;
+
+         if (this.x >= 505) {
+          this.x = -101;
+          this.y = this.yBase + (Math.floor((Math.random() * 3)) * this.yInterval); // get random number between 1 - 3; multiply by pixels to determine starting row of enemy
+
+    }
 };
-if (this.x > ctx.width) {
-    this.reset();
-}
-
-
-
-// Edges.call(this);
-// // Detects if the player collides with the enemy.
-// if (player.y > this.boxUp && player.y < this.boxDown && player.x > this.boxLeft && player.x < this.boxRight) {
-//     collide = true;
-//     player.updateScore();
-// }
-
-
-//  Update all the enemies. Adapted from jlongster on github
-// for(var i=0; i<enemies.length; i++) {
-//     enemies[i].pos[0] -= enemySpeed * dt;
-//     enemies[i].sprite.update(dt);
-//
-//     // Remove if offscreen
-//     if(enemies[i].pos[0] + enemies[i].sprite.size[0] < 0) {
-//         enemies.splice(i, 1);
-//         i--;
-//     }
 
 
 
@@ -91,26 +90,8 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Enemy.prototype.reset = function() {
-    this.x = xStart;
-    this.y = yStart;
-};
 
-//adapted from http://jsandlund.github.io/bugscape-js/
-checkCollisions = function() {
-    // iterate through all Enemy objects. If location of any is within 25px of a Player object, trigger collission event
-    for (var i = 0; i < allEnemies.length; i++) {
-        if (Math.abs(player.y - allEnemies[i].y) < 25 && Math.abs(player.x - allEnemies[i].x) < 25) {
-            this.updateScore(-1);
-            if (player.lives > 1) {
-                player.updateLives(-1);
-            } else {
-                this.changeState('state_endGame');
-            }
-            player.reset();
-        }
-    }
-};
+
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -128,6 +109,7 @@ var Player = function() {
     this.moveY = 83;
     this.moveX = 101;
     this.lives = 3;
+    this.collide = false;
 };
 
 Player.prototype.update = function(dt) {
@@ -137,6 +119,18 @@ Player.prototype.update = function(dt) {
     if (this.x > ctx.width) {
         this.reset();
     }
+    if(this.collide === true) {
+    for(var i=0;i<allEnemies.length;i++) {
+        allEnemies[i].bugReset();   // calling the method on the object, not the class
+    }
+}
+};
+
+// Updates the score.
+Player.prototype.updateScore = function() {
+  this.score = -50;
+  document.getElementById("elScore").innerHTML = player.score;
+
 };
 
 Player.prototype.reset = function() {
