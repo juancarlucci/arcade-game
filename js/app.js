@@ -41,10 +41,10 @@ Enemy.prototype.checkCollision = function(player) {
         player.resetPlayer();
         this.x = -1;
         player.lives--;
-        document.getElementById("elLives").innerHTML = player.lives;
+        document.getElementById("elLives").innerHTML = 'Lives: ' + player.lives;
 
         player.score -= 50;
-        document.getElementById("elScore").innerHTML = player.score;
+        document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
         if (player.lives === 0) {
         			// Player is out of lives, show the game over
         			game.gameOver = true;
@@ -52,7 +52,7 @@ Enemy.prototype.checkCollision = function(player) {
         		}
     }
     var win = true;
-      if (player.score === 300) {
+      if (player.score === 200) {
 
       } else {
         // Set the win flag to false
@@ -207,7 +207,7 @@ Player.prototype.handleInput = function(direction) {
         this.y -= 48;
     } else if (this.y < 10) {
         this.score += 100;
-        document.getElementById("elScore").innerHTML = player.score;
+        document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
         player.resetPlayer();
     }
 
