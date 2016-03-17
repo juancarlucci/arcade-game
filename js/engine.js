@@ -47,8 +47,23 @@ var Engine = (function(global) {
          * our
          *  function since it may be used for smooth animation.
          */
-        update(dt);
-        render();
+        // update(dt);
+        // render();
+        //
+
+        // Check to see if gameOver or won
+        if (game.gameOver) {
+            // Player lost, render the ending image
+            renderEnd();
+        } else if (game.gameWin) {
+            // Player won, render the winning image
+            renderWin();
+        } else {
+            // Game is still going, update & render the entities
+            update(dt);
+            render();
+        }
+
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -84,8 +99,7 @@ var Engine = (function(global) {
         updateEntities(dt);
         // checkCollisions();  //Check collinsions either here in engine.js, or in app.js
     }
-    //
-  //   scoreEl.innerHTML = score;
+
   // }
 
     /* This is called by the update function and loops through all of the
@@ -99,8 +113,9 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
+            // enemy.update(player); //no need for ths
         });
-        // player.update();
+        player.update(dt, player);
     }
 
     /* This function initially draws the "game level", it will then call
@@ -144,7 +159,18 @@ var Engine = (function(global) {
 
         renderEntities();
     }
+//dapted from http://tonirib.github.io/frontend-nanodegree-arcade-game/
+    function renderEnd() {
+        // Render the game over image
+        endImage = 'images/game-over.svg';
+        ctx.drawImage(Resources.get(endImage), 0, 0);
+    }
 
+    function renderWin() {
+        // Render the game winning image
+        winImage = 'images/game-win.svg';
+        ctx.drawImage(Resources.get(winImage), 0, 0);
+    }
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
      * on your enemy and player entities within app.js
@@ -157,7 +183,7 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        // player.render();
+        player.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -177,7 +203,12 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-horn-girl.png'
+         'images/Gem Green.png',
+         'images/Gem Blue.png',
+         'images/Gem Orange.png',
+        'images/char-horn-girl.png',
+        'images/game-over.svg',
+         'images/game-win.svg'
     ]);
     Resources.onReady(init);
 
