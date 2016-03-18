@@ -23,12 +23,14 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        //  $gameContainer = $('#game-container'),
+        $gameContainer = $('#game-container'),
         lastTime;
 
     canvas.width = 505;
     canvas.height = 606;
-    doc.body.appendChild(canvas);
+    // not sure of I need doc.body.appendChild(canvas), works wothout.
+    // doc.body.appendChild(canvas);
+   $gameContainer.append(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -97,7 +99,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();  //Check collinsions either here in engine.js, or in app.js
+        // checkCollisions();  //Check collinsions either here in engine.js, or in app.js. I am doing it in app.js
     }
 
   // }
@@ -161,7 +163,8 @@ var Engine = (function(global) {
     }
 //dapted from http://tonirib.github.io/frontend-nanodegree-arcade-game/
     function renderEnd() {
-        // Render the game over image
+        // Render the game over image.
+        // ctx.drawImage  https://html.spec.whatwg.org/multipage/scripting.html#dom-context-2d-drawimage
         endImage = 'images/game-over.svg';
         ctx.drawImage(Resources.get(endImage), 0, 0);
     }
