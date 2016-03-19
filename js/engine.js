@@ -29,7 +29,7 @@ var Engine = (function(global) {
     canvas.height = 606;
     // not sure of I need doc.body.appendChild(canvas), works wothout.
     // doc.body.appendChild(canvas);
-   $gameContainer.append(canvas);
+    $gameContainer.append(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -76,7 +76,6 @@ var Engine = (function(global) {
          */
         win.requestAnimationFrame(main);
     }
-
 
 
 
@@ -163,7 +162,7 @@ var Engine = (function(global) {
 
         renderEntities();
     }
-//dapted from http://tonirib.github.io/frontend-nanodegree-arcade-game/
+    //dapted from http://tonirib.github.io/frontend-nanodegree-arcade-game/
     function renderEnd() {
         // Render the game over image.
         // ctx.drawImage  https://html.spec.whatwg.org/multipage/scripting.html#dom-context-2d-drawimage
@@ -210,15 +209,15 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/enemy-bug-hit.png',
-         'images/Gem-Green.png',
-         'images/Gem-Blue.png',
-         'images/Gem-Orange.png',
+        'images/Gem-Green.png',
+        'images/Gem-Blue.png',
+        'images/Gem-Orange.png',
         'images/char-horn-girl.png',
         'images/player-hit.png',
         'images/player-bang.png',
         'images/game-over.svg',
         'images/game-win.svg',
-         'images/Rock.png'
+        'images/Rock.png'
     ]);
     Resources.onReady(init);
 
