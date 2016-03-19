@@ -78,6 +78,10 @@ var Engine = (function(global) {
         win.requestAnimationFrame(main);
     }
 
+
+
+
+
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
@@ -115,6 +119,7 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
+            gem.update(dt);
             // enemy.update(player); //no need for ths
         });
         player.update(dt, player);
@@ -187,6 +192,7 @@ var Engine = (function(global) {
         });
 
         player.render();
+        gem.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -206,12 +212,16 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-         'images/Gem Green.png',
-         'images/Gem Blue.png',
-         'images/Gem Orange.png',
+        'images/enemy-bug-hit.png',
+         'images/Gem-Green.png',
+         'images/Gem-Blue.png',
+         'images/Gem-Orange.png',
         'images/char-horn-girl.png',
+        'images/player-hit.png',
+        'images/player-bang.png',
         'images/game-over.svg',
-         'images/game-win.svg'
+        'images/game-win.svg',
+         'images/Rock.png'
     ]);
     Resources.onReady(init);
 
