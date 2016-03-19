@@ -1,11 +1,19 @@
 body {
     text-align: center;
+      background-color:rgb(204, 203, 200);
 }
 
-h1 {
+h1,
+h2 {
 	  font-family: 'Poiret One', cursive;
+    color: rgb(61, 60, 59);
 }
 div {
     font-family: 'Raleway', sans-serif;
+        color: white;
 
+}
+#sidebar {
+  background-color:rgb(204, 203, 200);
+  height: 740px;
 }
