@@ -142,7 +142,7 @@ var Player = function() {
     this.gameOver = false;
 		this.hasGem = false;
 		this.collistionCount = 0;
-		this.speech = '';
+		// this.speech = '';
 };
 
 
