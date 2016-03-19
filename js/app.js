@@ -1,9 +1,9 @@
 //Game state
 // Create the game constructor to store the game variables
 var Game = function() {
-	this.gameOver = false;
-	this.gameWin = false;
-	this.game = false;
+    this.gameOver = false;
+    this.gameWin = false;
+    this.game = false;
 };
 // Speed in pixels per second. From jlongster on github
 var playerSpeed = 200;
@@ -42,43 +42,43 @@ Enemy.prototype.checkCollision = function(player) {
         // player.resetPlayer();
 
         this.x = -10;
-				this.speed = +enemySpeed + Math.floor((Math.random() * 100) + 1) + 100;
-				// this.sprite = 'images/enemy-bug-hit.png';
+        this.speed = +enemySpeed + Math.floor((Math.random() * 100) + 1) + 100;
+        // this.sprite = 'images/enemy-bug-hit.png';
         player.lives--;
 
-				// Wait 1 second then resetPlayer
-				player.sprite = 'images/player-bang.png';
-			     setTimeout( function() {
-		          // player.resetPlayer();
-		          player.sprite = 'images/player-hit.png';
-		          // player.sprite = 'images/Rock.png';
-							  // this.x = -1;
-			     }, 100);
-				// player.sprite = 'images/player-hit.png';
+        // Wait 1 second then resetPlayer
+        player.sprite = 'images/player-bang.png';
+        setTimeout(function() {
+            // player.resetPlayer();
+            player.sprite = 'images/player-hit.png';
+            // player.sprite = 'images/Rock.png';
+            // this.x = -1;
+        }, 100);
+        // player.sprite = 'images/player-hit.png';
 
-				player.resetPlayer();
-				// Change player sprite
+        player.resetPlayer();
+        // Change player sprite
         document.getElementById("elLives").innerHTML = 'Lives: ' + player.lives;
 
         player.score -= 50;
         document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
         if (player.lives === 0) {
-        			// Player is out of lives, show the game over
-        			game.gameOver = true;
+            // Player is out of lives, show the game over
+            game.gameOver = true;
 
-        		}
+        }
     }
     var win = true;
-      if (player.score === 1000) {
+    if (player.score === 1000) {
 
-      } else {
+    } else {
         // Set the win flag to false
         win = false;
-      }
+    }
 
     // If the player has won, display the game winning image
     if (win) {
-      game.gameWin = true;
+        game.gameWin = true;
     }
 
     // Reset the player to her original location & image
@@ -96,7 +96,7 @@ Enemy.prototype.checkCollision = function(player) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     this.checkCollision(player);
-		// gem.collision();
+    // gem.collision();
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -104,9 +104,9 @@ Enemy.prototype.update = function(dt) {
     this.x = this.x + this.speed * dt;
 
 
-         if (this.x >= 505) {
-          this.x = -101;
-          this.y = this.yBase + (Math.floor((Math.random() * 3)) * this.yInterval); // get random number between 1 - 3; multiply by pixels to determine starting row of enemy
+    if (this.x >= 505) {
+        this.x = -101;
+        this.y = this.yBase + (Math.floor((Math.random() * 3)) * this.yInterval); // get random number between 1 - 3; multiply by pixels to determine starting row of enemy
 
     }
 
@@ -140,9 +140,9 @@ var Player = function() {
     this.lives = 15;
     this.checkCollision = false;
     this.gameOver = false;
-		this.hasGem = false;
-		this.collistionCount = 0;
-		// this.speech = '';
+    this.hasGem = false;
+    this.collistionCount = 0;
+    // this.speech = '';
 };
 
 
@@ -201,13 +201,13 @@ Player.prototype.resetPlayer = function() {
     }
 };
 
-Player.prototype.collisionCount = function () {
-		if (player.collistionCount === 1) {
-			this.speech = 'ouch';
-		}
-		if (player.collistionCount === 3) {
-			this.speech = 'that hurt';
-		}
+Player.prototype.collisionCount = function() {
+    if (player.collistionCount === 1) {
+        this.speech = 'ouch';
+    }
+    if (player.collistionCount === 3) {
+        this.speech = 'that hurt';
+    }
 };
 
 Player.prototype.gameOver = function() {
@@ -223,7 +223,7 @@ Player.prototype.gameReset = function() {
     resetPlayer(); // return player to starting position
     this.gameOver = true;
     enemy.x = 10;
-    };
+};
 
 
 Player.prototype.render = function() {
@@ -240,7 +240,7 @@ Player.prototype.handleInput = function(direction) {
     } else if (this.y < 10) {
         this.score += 100;
         document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
-				player.sprite = 'images/char-horn-girl.png';
+        player.sprite = 'images/char-horn-girl.png';
         player.resetPlayer();
     }
 
@@ -255,7 +255,7 @@ Player.prototype.handleInput = function(direction) {
 
 
 //Gem class
-var Gem = function(x,y) {
+var Gem = function(x, y) {
     //the gems appears in random location
     // this.height = 20;
     // this.width = 20;
@@ -267,23 +267,23 @@ var Gem = function(x,y) {
     }
 
 
-// };
-// //
-// // Creates a gem and places it on a random stone block with setGemLocation().
-// var Gem = function()
- {
-    this.setGemLocation();
-		this.incrementer = 0;
-		this.startX = this.x;
-		this.startY = this.y;
-}
+    // };
+    // //
+    // // Creates a gem and places it on a random stone block with setGemLocation().
+    // var Gem = function()
+    {
+        this.setGemLocation();
+        this.incrementer = 0;
+        this.startX = this.x;
+        this.startY = this.y;
+    }
 };
 
 // Sets the location of the gem when called in setGemLocation.
 function gemLocation() {
     this.x = (Math.floor(Math.random() * 5)) * 90 + 25;
     this.y = (Math.floor(Math.random() * 3) + 1) * 80 + 60;
-		 if (this.y < 100) {
+    if (this.y < 100) {
         this.y += 100;
     }
 }
@@ -306,38 +306,38 @@ Gem.prototype.setGemLocation = function() {
         this.value = 100;
     }
 };
-Gem.prototype.collision = function(){
-		if (player.x < this.x + 80 &&
-			player.x + 80 > this.x &&
-			player.y < this.y + 80 &&
-			80 + player.y > this.y) {
-			player.hasGem = true;
-		 this.setGemLocation();
-		 player.score += gem.value;
-		 document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
-	 }
+Gem.prototype.collision = function() {
+    if (player.x < this.x + 80 &&
+        player.x + 80 > this.x &&
+        player.y < this.y + 80 &&
+        80 + player.y > this.y) {
+        player.hasGem = true;
+        this.setGemLocation();
+        player.score += gem.value;
+        document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
+    }
 };
 
 Gem.prototype.update = function() {
-	this.collision();
-	// if (player.x < this.x + 75 &&
-	// 	player.x + 65 > this.x &&
-	// 	player.y < this.y + 50 &&
-	// 	70 + player.y > this.y) {
-	// 	player.hasGem = true;
-	//  this.x = 0;
-	//  this.y = 600;
-	// }
-// m-coding mentioned this. adapted from {http://www.kirupa.com/html5/introduction_to_easing_in_javascript.htm | Oscillation Formula}
-// oscillats the gems
-	//  this.incrementer += 0.05;
-	//  this.x += (Math.cos(this.incrementer)/4);
-	//  this.y += (Math.sin(this.incrementer)/4);
-	//  if(this.incrementer >= 6.28) {
-	// 		 this.incrementer = 0;
-	// 		 this.x = this.startX;
-	// 		 this.y = this.startY;
-	//  }
+    this.collision();
+    // if (player.x < this.x + 75 &&
+    // 	player.x + 65 > this.x &&
+    // 	player.y < this.y + 50 &&
+    // 	70 + player.y > this.y) {
+    // 	player.hasGem = true;
+    //  this.x = 0;
+    //  this.y = 600;
+    // }
+    // m-coding mentioned this. adapted from {http://www.kirupa.com/html5/introduction_to_easing_in_javascript.htm | Oscillation Formula}
+    // oscillats the gems
+    //  this.incrementer += 0.05;
+    //  this.x += (Math.cos(this.incrementer)/4);
+    //  this.y += (Math.sin(this.incrementer)/4);
+    //  if(this.incrementer >= 6.28) {
+    // 		 this.incrementer = 0;
+    // 		 this.x = this.startX;
+    // 		 this.y = this.startY;
+    //  }
 };
 
 // Draw the gem on the screen.
