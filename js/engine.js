@@ -30,6 +30,7 @@ var Engine = (function(global) {
     // not sure of I need doc.body.appendChild(canvas), works wothout.
     // doc.body.appendChild(canvas);
     $gameContainer.append(canvas);
+    document.getElementById('talks').style.left = ((screen.width - canvas.width) / 2 - 10) + 'px';
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -215,6 +216,7 @@ var Engine = (function(global) {
         'images/char-horn-girl.png',
         'images/player-hit.png',
         'images/player-bang.png',
+        'images/player-ouch.png',
         'images/game-over.svg',
         'images/game-win.svg',
         'images/Rock.png'
