@@ -15,8 +15,6 @@ document.getElementById('talk1').hidden = true;
 document.getElementById('talk2').hidden = true;
 document.getElementById('talk3').hidden = true;
 document.getElementById('talk4').hidden = true;
-
-
 // Enemies our player must avoid
 //The constructor function takes in arguments for the aspects that
 //will be different about each enemy. Here blank, ()
@@ -24,7 +22,6 @@ var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = 10;
-    // this.y = 20;
     this.y = 20 + (Math.floor((Math.random() * 3)) * this.yInterval);
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -32,7 +29,6 @@ var Enemy = function() {
     this.yBase = 60;
     this.yInterval = 87;
     this.speed = enemySpeed + Math.floor((Math.random() * 100) + 1);
-
 };
 // checks if enemy collided with player
 //adapted from shttps://discussions.udacity.com/t/trying-to-identify-collisions-but-how-do-i-compare-enemy-x-with-player-x/29930/9
@@ -41,21 +37,13 @@ Enemy.prototype.checkCollision = function(player) {
         player.x + 60 > this.x &&
         player.y < this.y + 40 &&
         60 + player.y > this.y) {
-        // player.resetPlayer();
-
         this.x = -10;
         this.speed = +enemySpeed + Math.floor((Math.random() * 100) + 1) + 100;
         this.sprite = 'images/enemy-bug-hit.png';
         player.lives--;
-
-        // Wait 1 second then resetPlayer
         player.sprite = 'images/player-bang.png';
-        // player.sprite = 'images/player-ouch.png';
         setTimeout(function() {
-            // player.resetPlayer();
             player.sprite = 'images/player-hit.png';
-            // player.sprite = 'images/Rock.png';
-            // this.x = -1;
         }, 100);
         player.resetPlayer();
         document.getElementById("elLives").innerHTML = 'Lives: ' + player.lives;
@@ -78,34 +66,21 @@ Enemy.prototype.checkCollision = function(player) {
     if (win) {
         game.gameWin = true;
     }
-
-    // Reset the player to her original location & image
-    // player.resetPlayer();
-
 };
-
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     this.checkCollision(player);
-    // gem.collision();
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
     // enemy.sprite.update(dt); //this does not allow enemies to be seen! keep it off.
     this.x = this.x + this.speed * dt;
-
-
     if (this.x >= 505) {
         this.x = -101;
         this.y = this.yBase + (Math.floor((Math.random() * 3)) * this.yInterval); // get random number between 1 - 3; multiply by pixels to determine starting row of enemy
-
     }
-
 };
-
-
-
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -117,7 +92,6 @@ Enemy.prototype.render = function() {
 var Player = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-horn-girl.png';
@@ -134,15 +108,12 @@ var Player = function() {
     // this.speech = '';
 };
 
-
 Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
     // I think this function is taken care of by handleInput
-
     // Check to see if the player has won the game
-
 };
 
 Player.prototype.resetPlayer = function() {
@@ -161,11 +132,9 @@ Player.prototype.gameReset = function() {
     enemy.x = 10;
 };
 
-
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
 
 Player.prototype.handleInput = function(direction) {
     if (direction === 'left' && this.x > 25) {
@@ -179,8 +148,6 @@ Player.prototype.handleInput = function(direction) {
         player.sprite = 'images/char-horn-girl.png';
         player.resetPlayer();
     }
-
-
     if (direction === 'right' && this.x < 400) {
         this.x += 101;
     }
@@ -188,7 +155,6 @@ Player.prototype.handleInput = function(direction) {
         this.y += 50;
     }
 };
-
 
 //Gem class
 var Gem = function(x, y) {
@@ -222,7 +188,6 @@ function gemLocation() {
 // Sets the location of a gem.
 Gem.prototype.setGemLocation = function() {
     var random = Math.floor(Math.random() * 90) + 3;
-
     if (random >= 75) {
         this.sprite = 'images/Gem-Blue.png';
         gemLocation.call(this);
@@ -237,6 +202,7 @@ Gem.prototype.setGemLocation = function() {
         this.value = 100;
     }
 };
+
 Gem.prototype.collision = function() {
     if (player.x < this.x + 80 &&
         player.x + 80 > this.x &&
@@ -265,7 +231,6 @@ for (var i = 1; i < 7; i++) {
 }
 // Place the player object in a variable called player
 var player = new Player();
-// var enemy = new Enemy();
 var gem = new Gem();
 // -- Instantiate the game --
 var game = new Game();
