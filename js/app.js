@@ -260,7 +260,7 @@ Gem.prototype.render = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
-for (var i = 1; i < 2; i++) {
+for (var i = 1; i < 7; i++) {
     allEnemies.push(new Enemy(this.x, (i * 83) - 30, this.speed * 100 * i));
 }
 // Place the player object in a variable called player
