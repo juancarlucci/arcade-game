@@ -2,41 +2,43 @@ body {
     text-align: center;
     background-color: rgb(61, 61, 61);
 }
+
 h1,
 h2 {
     font-family: 'Poiret One', cursive;
     color: rgb(255, 255, 255);
     vertical-align: middle;
 }
+
 div {
     font-family: 'Raleway', sans-serif;
     color: white;
     vertical-align: middle;
 }
-#sidebar {
-    /*background-color: rgb(204, 203, 200);*/
 
+#sidebar {
     height: 1000px;
     vertical-align: middle;
 }
 /*smugglerFlynn recommends this: http://stackoverflow.com/questions/20721248/best-way-to-override-bootstrap-css*/
 /*does not work on background color*/
-
 #game-container {
     background-color: rgb(71, 70, 71) !important;
     /*important did not work*/
-
     overflow: hidden;
     vertical-align: middle;
 }
+
 .row {
     display: flex;
 }
+
 .column {
     display: flex;
     width: 50%;
     align-items: center;
 }
+
 #talks p {
     animation-duration: 3s;
     animation-name: slidein;
