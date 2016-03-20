@@ -11,6 +11,7 @@ var enemySpeed = 100;
 var xStart = 200;
 var yStart = 385;
 // http://www.w3schools.com/jsref/prop_style_visibility.asp
+// inspired and adapted from https://github.com/IreneMarin/FEND-project-3-arcade
 document.getElementById('talk1').hidden = true;
 document.getElementById('talk2').hidden = true;
 document.getElementById('talk3').hidden = true;
@@ -156,7 +157,7 @@ Player.prototype.handleInput = function(direction) {
     }
 };
 
-//Gem class
+//Gem class adapted from http://kellim.github.io/arcade-game/
 var Gem = function(x, y) {
     //the gems appears in random location
     // this.height = 20;
