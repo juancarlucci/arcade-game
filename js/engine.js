@@ -49,9 +49,6 @@ var Engine = (function(global) {
          * our
          *  function since it may be used for smooth animation.
          */
-        // update(dt);
-        // render();
-        //
 
         // Check to see if gameOver or won
         if (game.gameOver) {
@@ -66,7 +63,6 @@ var Engine = (function(global) {
             render();
         }
 
-
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
          */
@@ -77,9 +73,6 @@ var Engine = (function(global) {
          */
         win.requestAnimationFrame(main);
     }
-
-
-
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
@@ -160,7 +153,6 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
         renderEntities();
     }
     //dapted from http://tonirib.github.io/frontend-nanodegree-arcade-game/
