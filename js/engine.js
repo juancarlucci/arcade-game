@@ -109,7 +109,7 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
-            gem.update(dt);
+            // gem.update(dt);
             // enemy.update(player); //no need for ths
         });
         player.update(dt, player);
@@ -161,6 +161,10 @@ var Engine = (function(global) {
         // ctx.drawImage  https://html.spec.whatwg.org/multipage/scripting.html#dom-context-2d-drawimage
         endImage = 'images/game-over.svg';
         ctx.drawImage(Resources.get(endImage), 0, 0);
+        document.getElementById('talk1').hidden = true;
+        document.getElementById('talk2').hidden = true;
+        document.getElementById('talk3').hidden = true;
+        document.getElementById('talk4').hidden = true;
     }
 
     function renderWin() {
@@ -181,7 +185,7 @@ var Engine = (function(global) {
         });
 
         player.render();
-        gem.render();
+        // gem.render();
     }
 
     /* This function does nothing but it could have been a good place to
