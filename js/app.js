@@ -57,8 +57,7 @@ Enemy.prototype.checkCollision = function(player) {
         }
     }
     var win = true;
-    if (player.score >= 1000) {
-    } else {
+    if (player.score >= 1000) {} else {
         // Set the win flag to false
         win = false;
     }
