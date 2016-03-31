@@ -6,8 +6,7 @@ var Game = function() {
     this.game = false;
 };
 // Speed in pixels per second. From jlongster on github
-var playerSpeed = 200;
-var enemySpeed = 100;
+var enemySpeed = 150;
 var xStart = 200;
 var yStart = 385;
 // http://www.w3schools.com/jsref/prop_style_visibility.asp
@@ -52,7 +51,7 @@ Enemy.prototype.checkCollision = function(player) {
         document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
         player.collisionCount += 1;
         document.getElementById('talk' + player.collisionCount).hidden = false;
-        if (player.lives === 0) {
+        if (player.lives <= 0) {
             // Player is out of lives, show the game over
             game.gameOver = true;
         }
@@ -99,14 +98,13 @@ var Player = function() {
     this.x = 200;
     this.y = 385;
     this.score = 0;
-    this.moveY = 83;
-    this.moveX = 101;
+    // this.moveY = 83;
+    // this.moveX = 101;
     this.lives = 3;
     this.checkCollision = false;
     this.gameOver = false;
     this.hasGem = false;
     this.collisionCount = 1;
-    // this.speech = '';
 };
 
 Player.prototype.update = function(dt) {
@@ -118,7 +116,7 @@ Player.prototype.update = function(dt) {
 };
 
 Player.prototype.resetPlayer = function() {
-    if (this.lives === 0) {
+    if (this.lives <= 0) {
         player.gameOver = true;
     } else {
         this.x = xStart;
@@ -128,7 +126,7 @@ Player.prototype.resetPlayer = function() {
 };
 
 Player.prototype.gameReset = function() {
-    resetPlayer(); // return player to starting position
+    this.resetPlayer(); // return player to starting position
     this.gameOver = true;
     enemy.x = 10;
 };
@@ -160,19 +158,17 @@ Player.prototype.handleInput = function(direction) {
 //Gem class adapted from http://kellim.github.io/arcade-game/
 var Gem = function(x, y) {
     //the gems appears in random location
-    // this.height = 20;
-    // this.width = 20;
+
     this.x = Math.floor(Math.random() * (505 - this.width));
     // //limits gem, not over water or grass
     this.y = Math.floor(Math.random() * (303 - this.height));
-    if (this.y < 200) {
+    if (this.y > 200) {
         this.y += 100;
     }
     // // Creates a gem and places it on a random stone block with setGemLocation().
     // var Gem = function()
     {
         this.setGemLocation();
-        this.incrementer = 0;
         this.startX = this.x;
         this.startY = this.y;
     }
