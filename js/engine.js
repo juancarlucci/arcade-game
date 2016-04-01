@@ -95,7 +95,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();  //Check collinsions either here in engine.js, or in app.js. I am doing it in app.js
+        heart.update();  //Check collinsions either here in engine.js, or in app.js. I am doing it in app.js
     }
 
     /* This is called by the update function and loops through all of the
@@ -109,7 +109,7 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
-            // gem.update(dt);
+            // heart.update(dt);
             // enemy.update(player); //no need for ths
         });
         player.update(dt, player);
@@ -185,7 +185,7 @@ var Engine = (function(global) {
         });
 
         player.render();
-        // gem.render();
+        heart.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -215,6 +215,7 @@ var Engine = (function(global) {
         'images/player-ouch.png',
         'images/game-over.svg',
         'images/game-win.svg',
+        'images/Heart.png',
         'images/Rock.png'
     ]);
     Resources.onReady(init);
