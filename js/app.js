@@ -6,7 +6,7 @@ var Game = function() {
     this.game = false;
 };
 // Speed in pixels per second. From jlongster on github
-var enemySpeed = 150;
+var enemySpeed = 170;
 var xStart = 200;
 var yStart = 385;
 // http://www.w3schools.com/jsref/prop_style_visibility.asp
@@ -21,7 +21,7 @@ document.getElementById('talk4').hidden = true;
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = 10;
+    this.x = 350;
     this.y = 20 + (Math.floor((Math.random() * 3)) * this.yInterval);
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -32,7 +32,7 @@ var Enemy = function() {
 };
 // checks if enemy collided with player
 //adapted from shttps://discussions.udacity.com/t/trying-to-identify-collisions-but-how-do-i-compare-enemy-x-with-player-x/29930/9
-Enemy.prototype.checkCollision = function(player) {
+Enemy.prototype.checkCollision = function() {
     if (player.x < this.x + 60 &&
         player.x + 60 > this.x &&
         player.y < this.y + 40 &&
@@ -69,7 +69,7 @@ Enemy.prototype.checkCollision = function(player) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    this.checkCollision(player);
+    this.checkCollision();
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -102,7 +102,7 @@ var Player = function() {
     this.lives = 3;
     this.checkCollision = false;
     this.gameOver = false;
-    this.hasGem = false;
+    this.hasHeart = false;
     this.collisionCount = 1;
 };
 
@@ -127,7 +127,7 @@ Player.prototype.resetPlayer = function() {
 Player.prototype.gameReset = function() {
     this.resetPlayer(); // return player to starting position
     this.gameOver = true;
-    enemy.x = 10;
+
 };
 
 Player.prototype.render = function() {
@@ -154,69 +154,50 @@ Player.prototype.handleInput = function(direction) {
     }
 };
 
-//Gem class adapted from http://kellim.github.io/arcade-game/
-var Gem = function(x, y) {
-    //the gems appears in random location
+// Heart class adapted from http://kellim.github.io/arcade-game/
+var Heart = function() {
+    //the heart appears in set location. Difficult to reach
+    this.x = 101;
+    this.y = 80;
+    this.sprite = 'images/Heart.png';
 
-    this.x = Math.floor(Math.random() * (505 - this.width));
-    // //limits gem, not over water or grass
-    this.y = Math.floor(Math.random() * (303 - this.height));
-    if (this.y > 200) {
-        this.y += 100;
-    }
-    // // Creates a gem and places it on a random stone block with setGemLocation().
-    // var Gem = function()
-    {
-        this.setGemLocation();
-        this.startX = this.x;
-        this.startY = this.y;
-    }
 };
+//
+// Heart.prototype.collision = function() {
+//     if (player.x < this.x + 80 &&
+//         player.x + 80 > this.x &&
+//         player.y < this.y + 80 &&
+//         80 + player.y > this.y) {
+//         player.hasHeart = true;
+//         consol.log(5+5);
+//         this.checkCollision();
+//         // this.setHeartLocation();
+//         this.x = -201;
+//         player.score += 100;
+//         document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
+//         player.lives += 1;
+//         document.getElementById("elLives").innerHTML = 'Lives: ' + player.lives;
+//     }
+// };
 
-// Sets the location of the gem when called in setGemLocation.
-function gemLocation() {
-    this.x = (Math.floor(Math.random() * 5)) * 90 + 25;
-    this.y = (Math.floor(Math.random() * 3) + 1) * 80 + 60;
-    if (this.y < 100) {
-        this.y += 100;
-    }
-}
-// Sets the location of a gem.
-Gem.prototype.setGemLocation = function() {
-    var random = Math.floor(Math.random() * 90) + 3;
-    if (random >= 75) {
-        this.sprite = 'images/Gem-Blue.png';
-        gemLocation.call(this);
-        this.value = 25;
-    } else if (random < 75 && random > 20) {
-        this.sprite = 'images/Gem-Green.png';
-        gemLocation.call(this);
-        this.value = 50;
-    } else {
-        this.sprite = 'images/Gem-Orange.png';
-        gemLocation.call(this);
-        this.value = 100;
-    }
-};
-
-Gem.prototype.collision = function() {
-    if (player.x < this.x + 80 &&
-        player.x + 80 > this.x &&
-        player.y < this.y + 80 &&
-        80 + player.y > this.y) {
-        player.hasGem = true;
-        this.setGemLocation();
-        player.score += gem.value;
+Heart.prototype.checkCollision = function() {
+    if (player.x < this.x + 60 &&
+        player.x + 60 > this.x &&
+        player.y < this.y + 40 &&
+        60 + player.y > this.y) {
+        this.x = -100;
+        player.lives++;
+        document.getElementById("elLives").innerHTML = 'Lives: ' + player.lives;
+        player.score += 50;
         document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
     }
 };
-
-Gem.prototype.update = function() {
-    this.collision();
+//
+Heart.prototype.update = function(dt) {
+    this.checkCollision();
 };
-
-// Draw the gem on the screen.
-Gem.prototype.render = function() {
+// // Draw the heart on the screen.
+Heart.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 // Now instantiate your objects.
@@ -227,7 +208,7 @@ for (var i = 1; i < 7; i++) {
 }
 // Place the player object in a variable called player
 var player = new Player();
-var gem = new Gem();
+var heart = new Heart();
 // -- Instantiate the game --
 var game = new Game();
 
