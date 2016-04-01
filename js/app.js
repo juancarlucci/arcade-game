@@ -162,23 +162,7 @@ var Heart = function() {
     this.sprite = 'images/Heart.png';
 
 };
-//
-// Heart.prototype.collision = function() {
-//     if (player.x < this.x + 80 &&
-//         player.x + 80 > this.x &&
-//         player.y < this.y + 80 &&
-//         80 + player.y > this.y) {
-//         player.hasHeart = true;
-//         consol.log(5+5);
-//         this.checkCollision();
-//         // this.setHeartLocation();
-//         this.x = -201;
-//         player.score += 100;
-//         document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
-//         player.lives += 1;
-//         document.getElementById("elLives").innerHTML = 'Lives: ' + player.lives;
-//     }
-// };
+
 
 Heart.prototype.checkCollision = function() {
     if (player.x < this.x + 60 &&
