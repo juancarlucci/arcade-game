@@ -1,3 +1,9 @@
+'use strict';
+// from http://www.codexpedia.com/javascript/remedy-for-variable-was-used-before-it-was-defined-from-jslint/
+/*global document, window, alert, console, require*/
+
+var setTimeout, Game, ctx, Resources, allEnemies;
+// }
 //Game state
 // Create the game constructor to store the game variables
 var Game = function() {
@@ -116,10 +122,11 @@ Player.prototype.update = function(dt) {
 
 Player.prototype.resetPlayer = function() {
     if (this.lives <= 0) {
-        player.gameOver = true;
+        this.gameOver = true;
     } else {
         this.x = xStart;
         this.y = yStart;
+        var self = this;
         document.getElementById('talk' + player.collisionCount).hidden = true;
     }
 };
@@ -143,8 +150,8 @@ Player.prototype.handleInput = function(direction) {
     } else if (this.y < 10) {
         this.score += 100;
         document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
-        player.sprite = 'images/char-horn-girl.png';
-        player.resetPlayer();
+        this.sprite = 'images/char-horn-girl.png';
+        this.resetPlayer();
     }
     if (direction === 'right' && this.x < 400) {
         this.x += 101;
