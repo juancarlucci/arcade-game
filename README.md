@@ -13,6 +13,11 @@ Download the repository to your desktop, unzip it and open the "index.html" file
 To play the game, use the **arrow keys** from your keyboard to move your player up, right, down and left. Try to reach the water.
 Don't get hit by the bugs, or you loose points and are sent back to the beginning. If you **reach 1,000 points, you win!**
 
+## Skills learned/practiced on this project
+
+1. Object Oriented Javascript: scopes, closures, prototype chains
+2. HTML5 Canvas: animation basics
+3. Collision detection
 
 ## Credits
 
