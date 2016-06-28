@@ -4,6 +4,10 @@ Udacity project to recreate the classic arcade game Frogger, using Object-Orient
 
 ## How to run the game
 
+Play it [here](http://juancarlucci.github.io/frontend-nanodegree-arcade-game/)
+
+Or...
+
 Download the repository to your desktop, unzip it and open the "index.html" file in your browser to play the game. 
 
 
