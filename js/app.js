@@ -59,6 +59,7 @@ Enemy.prototype.checkCollision = function() {
         document.getElementById('talk' + player.collisionCount).hidden = false;
         if (player.lives <= 0) {
             // Player is out of lives, show the game over
+            player.score = 0;
             game.gameOver = true;
         }
     }
@@ -127,7 +128,7 @@ Player.prototype.resetPlayer = function() {
         this.x = xStart;
         this.y = yStart;
         var self = this;
-        document.getElementById('talk' + player.collisionCount).hidden = true;
+        document.getElementById('talk' + self.collisionCount).hidden = true;
     }
 };
 
@@ -149,7 +150,8 @@ Player.prototype.handleInput = function(direction) {
         this.y -= 48;
     } else if (this.y < 10) {
         this.score += 100;
-        document.getElementById("elScore").innerHTML = 'Score: ' + player.score;
+        var self = this;
+        document.getElementById("elScore").innerHTML = 'Score: ' + self.score;
         this.sprite = 'images/char-horn-girl.png';
         this.resetPlayer();
     }
@@ -195,7 +197,8 @@ Heart.prototype.render = function() {
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 for (var i = 1; i < 7; i++) {
-    allEnemies.push(new Enemy(this.x, (i * 83) - 30, this.speed * 100 * i));
+    var self = this;
+    allEnemies.push(new Enemy(self.x, (i * 83) - 30, self.speed * 100 * i));
 }
 // Place the player object in a variable called player
 var player = new Player();
